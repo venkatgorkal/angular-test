@@ -1,0 +1,16 @@
+
+<h1>
+   Search Person
+  </h1>
+  <input type="text" (input)="onKey($event)"/>
+  <table border="1" style="width: 33%">
+    <tr>
+      <th>FirstName</th>
+      <th>Last Name</th>
+    </tr>
+    <tr *ngFor="let person of persons">
+    
+      <td>{{ person.firstName }}</td>
+      <td>{{ person.lastName }}</td>
+    </tr>
+  </table>

@@ -1,0 +1,11 @@
+
+
+<a [routerLink]="['/searchPerson']">
+    Search Person
+  </a>
+
+<ul class="user__list" *ngIf="(persons$ | async)">
+    <li class="user" *ngFor="let person of persons$ | async">
+        {{ person.firstName }} - {{ person.lastName }}
+    </li>
+</ul>
