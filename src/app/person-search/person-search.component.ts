@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Person } from '../person/person';
 import { PersonServiceService } from '../person/person-service.service';
 
@@ -16,22 +16,23 @@ export class PersonSearchComponent implements OnInit {
   public persons$: Observable<Person[]>;
   public persons: Person[];
 
+  personSubsrction: Subscription;
+
+  public searchName: string;
+
   constructor(private personService: PersonServiceService) { }
 
   ngOnInit() {
     this.persons$ = this.personService.getPersonList();
-    this.persons$.subscribe(res=>{
+     this.personSubsrction =this.persons$.subscribe(res=>{
       this.persons = res;
     })
   }
 
-  onKey(event: any) { // without type info
-    const searchValue =  event.target.value;
-    if(this.persons) {
-      this.persons = this.persons.filter(person=>{
-        person.firstName.toLowerCase() === searchValue;
-      });
+  ngOnDestroy() {
+    if(this.personSubsrction) {
+      this.personSubsrction.unsubscribe();
     }
-  }
 
+  }
 }
